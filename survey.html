@@ -1,0 +1,45 @@
+<?php
+// Start the session
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<?php
+	if ($_SESSION["done"]=="true"){
+		echo <meta http-equiv="refresh" content=0; URL='http://new-website.com' />
+	}
+?>
+</head>
+<body>
+	<h1>Opinions on Homeschooling</h1>
+	<form action="survey.php" method="post">
+	Should homeschooling be legal at all?<br>
+  		<input type="radio" name="legal" value="yes"> Yes<br>
+  		<input type="radio" name="legal" value="no"> No<br>
+	Where legal, should homeschooling parents be required to have some type of training or certification? <br>
+		<input type="radio" name="cert" value="yes-max"> Yes, they need to be certified teachers<br>
+		<input type="radio" name="cert" value="yes-mid"> Yes, they need a post-secondary degree in any field<br>
+		<input type="radio" name="cert" value="yes-min"> Yes, they need a high school diploma<br>
+		<input type="radio" name "cert" value="noTrain"> No, no state required education should be required<br>
+	Where legal, should homeschooled children be tested regularly by the state? <br>
+		<input type="radio" name="test" value="yes-cons"> Yes, and low test scores should have consequences<br>
+		<input type="radio" name="test" value="yes-free"> Yes, but no consequences should be attached automatically<br>
+		<input type="radio" name="test" value="noTest"> No <br>
+	What are your political leanings? <br>
+		<input type="radio" name="pol" value="rep"> Republican<br>
+		<input type="radio" name="pol" value="dem"> Democrat<br>
+		<input type="radio" name="pol" value="lib"> Libertarian<br>
+		<input type="radio" name="pol" value="soc"> Socialist<br>
+		<input type="radio" name="pol" value="other"> Other Party or Movement<br>
+		<input type="radio" name="pol" value="noLean"> No consistant leanings<br><br>
+  	<input type="submit" value="Submit">
+	</form>
+	<h3><a href="results.html">View Results</a></h3>
+	<?php
+    if (isset($_POST['Submit'])) {
+        $_SESSION["done"] = "true";
+	}
+	?>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pie Chart Demo (LibChart)- http://codeofaninja.com/</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-15" />
+</head>
+<body>
+
+<?php
+	$myfile = fopen(results.txt, "r") or die("Unable to open file");
+	//Count up answers to Q1
+	$legY, $legN = 0;
+	while(!feof($myfile)) {
+		$check = fgets($myfile) . "<br>";
+		if ($check = "yes"){
+			$legY++;
+		}else if ($check = "no"){
+			$legN++;
+		}
+	}
+	//Count up answers to Q2
+	$yesMax, $yesMin, $yesMid, $noTrain = 0;
+	while(!feof($myfile)) {
+		$check = fgets($myfile) . "<br>";
+		if ($check = "yes-max"){
+			$yesMax++;
+		}else if ($check = "yes-min"){
+			$yesMin++;
+		}else if ($check = "yes-mid"){
+			$yesMid++;
+		}else if ($check = "noTrain"){
+			$noTrain++;
+		}
+	}
+	//Count up answers to Q3
+	$yesCons, $yesFree, $noTest = 0;
+	while(!feof($myfile)) {
+		$check = fgets($myfile) . "<br>";
+		if ($check = "yes-cons"){
+			$yesCons++;
+		}else if ($check = "yes-free"){
+			$yesFree++;
+		}else if ($check = "noTest"){
+			$noTest++;
+		}
+	}
+	//Count up answers to Q4
+	$rep, $dem, $lib, $soc, $other, $noLean = 0;
+	while(!feof($myfile)) {
+		$check = fgets($myfile) . "<br>";
+		if ($check = "rep"){
+			$rep++;
+		}else if ($check = "dem"){
+			$dem++;
+		}else if ($check = "lib"){
+			$lib++;
+		}else if ($check = "soc"){
+			$soc++;
+		}else if($check = "other"){
+			$other++;
+		}else if($check = "noLean"){
+			$noLean++;
+		}
+	}
+	//include the library
+    include "libchart/libchart/classes/libchart.php";
+ 
+    //Pie Chart for Legality
+    $chartLegal = new PieChart( 500, 300 );
+ 
+    //data set instance
+    $dataSet = new XYDataSet();
+    
+	//get data
+	$dataSet->addPoint(new Point("Yes", $legY));
+	$dataSet->addPoint(new Point("No", $legN));
+
+	//finalize dataset
+	$chart->setDataSet($dataSet);
+
+	//set chart title
+	$chart->setTitle("Should homeschooling be legal?");
+	
+	//render as an image and store under "generated" folder
+	$chart->render("generated/1.png");
+
+	//pull the generated chart where it was stored
+	echo "<img alt='Pie chart'  src='generated/1.png' style='border: 1px solid gray;'/>";
+	
+	//PieChart for Certification
+    $chartCert = new PieChart( 500, 300 );
+ 
+    //data set instance
+    $dataSet = new XYDataSet();
+    
+	//get data
+	$dataSet->addPoint(new Point("Yes, a Teaching Certificate", $yesMax));
+	$dataSet->addPoint(new Point("Yes, a degree", $yesMid));
+	$dataSet->addPoint(new Point("Yes, a diploma", $yesMin));
+	$dataSet->addPoint(new Point("No", $noTrain));
+
+	//finalize dataset
+	$chart->setDataSet($dataSet);
+
+	//set chart title
+	$chart->setTitle("Should homeschooling parents be required to have training or certification?");
+	
+	//render as an image and store under "generated" folder
+	$chart->render("generated/2.png");
+
+	//pull the generated chart where it was stored
+	echo "<img alt='Pie chart'  src='generated/2.png' style='border: 1px solid gray;'/>";
+	
+	//Testing Pie Chart
+    $chartLegal = new PieChart( 500, 300 );
+ 
+    //data set instance
+    $dataSet = new XYDataSet();
+    
+	//get data
+	$dataSet->addPoint(new Point("Yes, with consequences", $yesCons));
+	$dataSet->addPoint(new Point("Yes, without consequences", $yesFree));
+	$dataSet->addPoint(new Point("No", $noTest));
+
+	//finalize dataset
+	$chart->setDataSet($dataSet);
+
+	//set chart title
+	$chart->setTitle("Should homeschooled students be tested by the state?");
+	
+	//render as an image and store under "generated" folder
+	$chart->render("generated/3.png");
+
+	//pull the generated chart where it was stored
+	echo "<img alt='Pie chart'  src='generated/3.png' style='border: 1px solid gray;'/>";
+	
+	//Political Chart
+    $chartLegal = new PieChart( 500, 300 );
+ 
+    //data set instance
+    $dataSet = new XYDataSet();
+    
+	//get data
+	$dataSet->addPoint(new Point("Republican", $rep));
+	$dataSet->addPoint(new Point("Democrat", $dem));
+	$dataSet->addPoint(new Point("Libertarian", $lib));
+	$dataSet->addPoint(new Point("Socialist", $soc));
+	$dataSet->addPoint(new Point("Other", $other));
+	$dataSet->addPoint(new Point("No Leaning", $noLean));
+
+	//finalize dataset
+	$chart->setDataSet($dataSet);
+
+	//set chart title
+	$chart->setTitle("What are your political leanings");
+	
+	//render as an image and store under "generated" folder
+	$chart->render("generated/4.png");
+
+	//pull the generated chart where it was stored
+	echo "<img alt='Pie chart'  src='generated/4.png' style='border: 1px solid gray;'/>";
+?>
+ 
+</body>
+</html>
